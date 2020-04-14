@@ -19,4 +19,15 @@ class Client extends AbstractApi
     {
         return $this->get('api/open/auth/url', $payload);
     }
+
+    /**
+     * 获取ticket
+     *
+     * @param array $payload
+     * @return \Cblink\Service\Kennel\HttpResponse
+     */
+    public function getTicket(array $payload = [])
+    {
+        return $this->get('api/open/ticket', $payload);
+    }
 }

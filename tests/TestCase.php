@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
  */
 class TestCase extends BaseTestCase
 {
-
     /**
      * @param $path
      * @return string
@@ -33,24 +32,7 @@ class TestCase extends BaseTestCase
                 'app_id' => 1,
                 'key' => 'test',
                 'secret' => 'test',
-            ],
-            // 请求配置
-            'request' => [
-                'timeout' => 5,
-                'http_errors' => false,
-                'verify' => false,
-            ],
-            // 日志配置
-            'log' => [
-                'default' => 'single',
-                'channels' => [
-                    'single' => [
-                        'driver' => 'single',
-                        'path' => \sys_get_temp_dir().'/logs/cblink-service.log',
-                        'level' => 'debug',
-                    ],
-                ],
-            ],
+            ]
         ];
 
         if (file_exists($fileName =__DIR__.'/../config/base.php')){

@@ -8,6 +8,8 @@
             "email": "nick@httpd.cc"
         }
     ],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.2",
         "cblink-service/kernel": "dev-master"

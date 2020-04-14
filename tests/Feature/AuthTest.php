@@ -10,6 +10,17 @@ use Cblink\Service\Wechat\OpenPlatform\Tests\TestCase;
 class AuthTest extends TestCase
 {
 
+    public function testGetTicket()
+    {
+        $res = $this->getApplication()
+            ->auth
+            ->getTicket();
+
+        var_dump($res->all());
+
+        $this->assertTrue($res->success());
+    }
+
     public function testGetAuthUrl()
     {
         $res = $this->getApplication()

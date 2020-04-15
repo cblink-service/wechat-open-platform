@@ -17,7 +17,7 @@ class Client extends AbstractApi
      */
     public function getAuthUrl(array $payload = [])
     {
-        return $this->get('api/open/auth/url', $payload);
+        return $this->get('api/open/auth/url', array_merge(['auth_type' => 1], $payload));
     }
 
     /**

@@ -31,7 +31,7 @@ class AuthTest extends TestCase
                 'url' => 'http://localhost'
             ]);
 
-        var_dump($res->origin());
+        var_dump($res->all());
 
         $this->assertTrue($res->success());
     }

@@ -17,7 +17,24 @@ class Client extends AbstractApi
      */
     public function getAuthUrl(array $payload = [])
     {
-        return $this->get('api/open/auth/url', array_merge(['auth_type' => 1], $payload));
+        return $this->get('api/open/auth/url', array_merge([
+            'uuid' => $this->app->getUuid(),
+            'auth_type' => 1
+        ], $payload));
+    }
+
+    /**
+     * 绑定公众号到应用
+     *
+     * @param $appId
+     * @return \Cblink\Service\Kennel\HttpResponse
+     */
+    public function bindAppId($appId)
+    {
+        return $this->get('api/open/auth/url', [
+            'uuid' => $this->app->getUuid(),
+            'app_id' => $appId
+        ]);
     }
 
     /**
@@ -28,6 +45,6 @@ class Client extends AbstractApi
      */
     public function getTicket(array $payload = [])
     {
-        return $this->get('api/open/ticket', $payload);
+        return $this->get("api/open/auth/{$this->app->getUuid()}/ticket", $payload);
     }
 }

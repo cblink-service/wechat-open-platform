@@ -15,9 +15,20 @@ class Client extends AbstractApi
      * @param array $payload
      * @return \Cblink\Service\Kennel\HttpResponse
      */
-    public function bind(array $payload = [])
+    public function create(array $payload = [])
     {
         return $this->post('api/open/config', $payload);
+    }
+
+    /**
+     * 修改账号配置信息
+     *
+     * @param array $payload
+     * @return \Cblink\Service\Kennel\HttpResponse
+     */
+    public function update(array $payload = [])
+    {
+        return $this->put("api/open/config/{$this->app->getUuid()}", $payload);
     }
 
     /**
@@ -26,31 +37,19 @@ class Client extends AbstractApi
      * @param array $payload
      * @return \Cblink\Service\Kennel\HttpResponse
      */
-    public function storeUrls(array $payload = [])
+    public function storeUrl(array $payload = [])
     {
-        return $this->post('api/open/config/url', $payload);
+        return $this->post("api/open/config/{$this->app->getUuid()}/url", $payload);
     }
 
     /**
-     * 获取配置的webhook url
+     * 获取配置的url
      *
      * @param array $payload
      * @return \Cblink\Service\Kennel\HttpResponse
      */
-    public function getUrls(array $payload = [])
+    public function getUrl(array $payload = [])
     {
-        return $this->get('api/open/config/url', $payload);
-    }
-
-    /**
-     * 获取事件配置的url
-     *
-     * @param string $event
-     * @param array $payload
-     * @return \Cblink\Service\Kennel\HttpResponse
-     */
-    public function getUrlsByEvent(string $event,array $payload = [])
-    {
-        return $this->get("api/open/config/url/{$event}", $payload);
+        return $this->get("api/open/config/{$this->app->getUuid()}/url", $payload);
     }
 }

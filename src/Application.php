@@ -14,7 +14,7 @@ class Application extends ServiceContainer
     /**
      * @var string
      */
-    protected $base_url = 'https://api.service.cblink.net/wechat';
+    protected $base_url = 'https://api.service.cblink.net/wechat/';
 
     /**
      * @inheritDoc
@@ -25,5 +25,13 @@ class Application extends ServiceContainer
             Auth\ServiceProvider::class,
             Configure\ServiceProvider::class,
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUuid() : string
+    {
+        return $this->config('uuid');
     }
 }

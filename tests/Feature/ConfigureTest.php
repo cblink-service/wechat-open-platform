@@ -24,7 +24,7 @@ class ConfigureTest extends TestCase
 
         $res = $this->getApplication()
             ->configure
-            ->bind($payload);
+            ->create($payload);
 
         $this->assertTrue($res->success(), $res->errMsg());
     }
@@ -32,17 +32,13 @@ class ConfigureTest extends TestCase
     /**
      * 保存url
      */
-    public function testHookUrl()
+    public function testStoreUrl()
     {
         $res = $this->getApplication()
             ->configure
-            ->storeUrls([
-                /** @see EasyWeChat\OpenPlatform\Server\Guard **/
-                'event' => 'component_verify_ticket',
-                'url' => [
-                    'http://localhost',
-                    'http://localhost:8080'
-                ]
+            ->storeUrl([
+                'event' => 'server',
+                'url' => 'http://localhost:8080'
             ]);
 
         $this->assertTrue($res->success(), $res->errMsg());
@@ -55,19 +51,7 @@ class ConfigureTest extends TestCase
     {
         $res = $this->getApplication()
             ->configure
-            ->getUrls();
-
-        $this->assertTrue($res->success(), $res->errMsg());
-    }
-
-    /**
-     * 获取特定事件配置的url
-     */
-    public function testUrlByEvent()
-    {
-        $res = $this->getApplication()
-            ->configure
-            ->getUrlsByEvent('component_verify_tickets');
+            ->getUrl();
 
         $this->assertTrue($res->success(), $res->errMsg());
     }

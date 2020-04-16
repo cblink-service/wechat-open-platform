@@ -26,13 +26,12 @@ class TestCase extends BaseTestCase
     {
         $config = [
             // 配置信息
-            'config' => [
-                'private' => true,
-                'base_url' => 'http://127.0.0.1//',
-                'app_id' => 1,
-                'key' => 'test',
-                'secret' => 'test',
-            ]
+            'private' => true,
+            'base_url' => 'http://127.0.0.1//',
+            'app_id' => 1,
+            'key' => 'test',
+            'secret' => 'test',
+            'uuid' => ''
         ];
 
         if (file_exists($fileName =__DIR__.'/../config/base.php')){

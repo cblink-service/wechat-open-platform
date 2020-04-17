@@ -31,7 +31,7 @@ class Client extends AbstractApi
      */
     public function bindAppId($appId)
     {
-        return $this->get('api/open/auth/url', [
+        return $this->post('api/open/auth/bind', [
             'uuid' => $this->app->getUuid(),
             'app_id' => $appId
         ]);

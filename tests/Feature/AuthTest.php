@@ -35,4 +35,15 @@ class AuthTest extends TestCase
 
         $this->assertTrue($res->success());
     }
+
+
+    public function testBindAppId()
+    {
+        $res = $this->getApplication()
+            ->auth->bindAppId('test123456');
+
+        var_dump($res->all());
+
+        $this->assertTrue($res->success());
+    }
 }

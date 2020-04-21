@@ -1,6 +1,7 @@
 <?php
 namespace Cblink\Service\Wechat\OpenPlatform\Tests;
 
+use Closure;
 use Cblink\Service\Wechat\OpenPlatform\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -11,18 +12,11 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 class TestCase extends BaseTestCase
 {
     /**
-     * @param $path
-     * @return string
+     * @var Application
      */
-    public function basePath($path = '')
-    {
-        return __DIR__ . '/../' . $path;
-    }
+    protected $application;
 
-    /**
-     * @return Application
-     */
-    public function getApplication()
+    protected function setUp(): void
     {
         $config = [
             // 配置信息
@@ -34,10 +28,50 @@ class TestCase extends BaseTestCase
             'uuid' => ''
         ];
 
-        if (file_exists($fileName =__DIR__.'/../config/base.php')){
+        if (file_exists($fileName = $this->basePath('config/base.php'))){
             $config = include $fileName;
         }
 
-        return new Application($config);
+        $this->application = new Application($config);
+    }
+
+    /**
+     * @param $path
+     * @return string
+     */
+    public function basePath($path = '')
+    {
+        return __DIR__ . '/../' . $path;
+    }
+
+    /**
+     * @param $name
+     * @param $rebind
+     * @return Application
+     */
+    public function rebindAppClient($name, $rebind)
+    {
+        if (!($rebind instanceof Closure)) {
+            $rebind = function() use ($rebind) {
+                return $rebind;
+            };
+        }
+
+        $this->application->rebind($name, $rebind);
+
+        return $this->application;
+    }
+
+    /**
+     * @return Application
+     */
+    public function getApp()
+    {
+        return $this->application;
+    }
+
+    protected function tearDown(): void
+    {
+        \Mockery::close();
     }
 }

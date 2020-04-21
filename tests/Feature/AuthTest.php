@@ -1,7 +1,11 @@
 <?php
 namespace Cblink\Service\Wechat\OpenPlatform\Tests\Feature;
 
+use Cblink\Service\Kennel\HttpResponse;
+use Cblink\Service\Wechat\OpenPlatform\Auth\Client;
 use Cblink\Service\Wechat\OpenPlatform\Tests\TestCase;
+use Cblink\Service\Wechat\OpenPlatform\Tests\Traits\GetPsrResponse;
+
 
 /**
  * Class WorkTest
@@ -9,29 +13,48 @@ use Cblink\Service\Wechat\OpenPlatform\Tests\TestCase;
  */
 class AuthTest extends TestCase
 {
+    use GetPsrResponse;
 
     public function testGetTicket()
     {
-        $res = $this->getApplication()
+        $client = \Mockery::mock(
+            Client::class,
+            [$this->getApp()]
+        );
+        $client->allows()
+            ->getTicket()
+            ->andReturn($this->getHttpResponse([
+                'ticket' => 'testtesttestestetst'
+            ]));
+
+        $res = $this->rebindAppClient('auth',  $client)
             ->auth
             ->getTicket();
-
-        var_dump($res->all());
 
         $this->assertTrue($res->success());
     }
 
     public function testGetAuthUrl()
     {
-        $res = $this->getApplication()
-            ->auth
-            ->getAuthUrl([
-                'auth_type' => 3,
-                'type' => 'scan',
-                'url' => 'http://localhost'
-            ]);
+        $payload = [
+            'auth_type' => 3,
+            'type' => 'scan',
+            'url' => 'http://localhost'
+        ];
 
-        var_dump($res->all());
+        $client = \Mockery::mock(
+            Client::class,
+            [$this->getApp()]
+        );
+        $client->allows()
+            ->getAuthUrl($payload)
+            ->andReturn($this->getHttpResponse([
+                'url' => 'http://www.baidu.com'
+            ]));
+
+        $res = $this->rebindAppClient('auth', $client)
+            ->auth
+            ->getAuthUrl($payload);
 
         $this->assertTrue($res->success());
     }
@@ -39,10 +62,18 @@ class AuthTest extends TestCase
 
     public function testBindAppId()
     {
-        $res = $this->getApplication()
-            ->auth->bindAppId('test123456');
+        $appId = 'test123456';
 
-        var_dump($res->all());
+        $client = \Mockery::mock(
+            Client::class,
+            [$this->getApp()]
+        );
+        $client->allows()
+            ->bindAppId($appId)
+            ->andReturn($this->getHttpResponse());
+
+        $res = $this->rebindAppClient('auth', $client)
+            ->auth->bindAppId($appId);
 
         $this->assertTrue($res->success());
     }

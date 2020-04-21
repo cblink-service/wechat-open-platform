@@ -1,7 +1,9 @@
 <?php
 namespace Cblink\Service\Wechat\OpenPlatform\Tests\Feature;
 
+use Cblink\Service\Wechat\OpenPlatform\Configure\Client;
 use Cblink\Service\Wechat\OpenPlatform\Tests\TestCase;
+use Cblink\Service\Wechat\OpenPlatform\Tests\Traits\GetPsrResponse;
 use Illuminate\Support\Str;
 
 /**
@@ -10,6 +12,8 @@ use Illuminate\Support\Str;
  */
 class ConfigureTest extends TestCase
 {
+    use GetPsrResponse;
+
     /**
      * 账户绑定
      */
@@ -22,7 +26,14 @@ class ConfigureTest extends TestCase
             'aes_key' => Str::random(43)
         ];
 
-        $res = $this->getApplication()
+        $client = \Mockery::mock(Client::class, [$this->getApp()]);
+        $client->allows()
+            ->create($payload)
+            ->andReturn($this->getHttpResponse([
+                'uuid' => 'xxxxxxxxxxxxxxs'
+            ]));
+
+        $res = $this->rebindAppClient('configure', $client)
             ->configure
             ->create($payload);
 
@@ -34,12 +45,19 @@ class ConfigureTest extends TestCase
      */
     public function testStoreUrl()
     {
-        $res = $this->getApplication()
+        $payload = [
+            'event' => 'server',
+            'url' => 'http://localhost:8080'
+        ];
+
+        $client = \Mockery::mock(Client::class, [$this->getApp()]);
+        $client->allows()
+            ->storeUrl($payload)
+            ->andReturn($this->getHttpResponse());
+
+        $res = $this->rebindAppClient('configure', $client)
             ->configure
-            ->storeUrl([
-                'event' => 'server',
-                'url' => 'http://localhost:8080'
-            ]);
+            ->storeUrl($payload);
 
         $this->assertTrue($res->success(), $res->errMsg());
     }
@@ -49,7 +67,12 @@ class ConfigureTest extends TestCase
      */
     public function testUrls()
     {
-        $res = $this->getApplication()
+        $client = \Mockery::mock(Client::class, [$this->getApp()]);
+        $client->allows()
+            ->getUrl()
+            ->andReturn($this->getHttpResponse());
+
+        $res = $this->rebindAppClient('configure', $client)
             ->configure
             ->getUrl();
 

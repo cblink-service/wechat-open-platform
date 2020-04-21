@@ -1,4 +1,5 @@
 <?php
+
 namespace Cblink\Service\Wechat\OpenPlatform\Auth;
 
 use Pimple\Container;
@@ -15,7 +16,7 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['auth'] = function($pimple){
+        $pimple['auth'] = function ($pimple) {
             return new Client($pimple);
         };
     }

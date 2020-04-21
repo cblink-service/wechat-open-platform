@@ -1,4 +1,5 @@
 <?php
+
 namespace Cblink\Service\Wechat\OpenPlatform\Auth;
 
 use Cblink\Service\Kennel\AbstractApi;

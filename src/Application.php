@@ -1,4 +1,5 @@
 <?php
+
 namespace Cblink\Service\Wechat\OpenPlatform;
 
 use Cblink\Service\Kennel\ServiceContainer;
@@ -30,7 +31,7 @@ class Application extends ServiceContainer
     /**
      * @return mixed
      */
-    public function getUuid() : string
+    public function getUuid(): string
     {
         return $this->config('uuid');
     }

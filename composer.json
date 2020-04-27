@@ -12,11 +12,11 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.2",
-        "cblink-service/kernel": "dev-master",
-        "mockery/mockery": "^1.3"
+        "cblink-service/kernel": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^7.0|^8.5",
+        "mockery/mockery": "^0.9|^1.3",
         "friendsofphp/php-cs-fixer": "^2.16"
     },
     "autoload": {

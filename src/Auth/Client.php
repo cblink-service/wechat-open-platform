@@ -48,4 +48,15 @@ class Client extends AbstractApi
     {
         return $this->get("api/open/auth/{$this->app->getUuid()}/ticket", $payload);
     }
+
+    /**
+     * 获取access token
+     *
+     * @param array $payload
+     * @return \Cblink\Service\Kennel\HttpResponse
+     */
+    public function getAccessToken(array $payload = [])
+    {
+        return $this->get("api/open/auth/{$this->app->getUuid()}/ticket", $payload);
+    }
 }

@@ -57,6 +57,6 @@ class Client extends AbstractApi
      */
     public function getAccessToken(array $payload = [])
     {
-        return $this->get("api/open/auth/{$this->app->getUuid()}/ticket", $payload);
+        return $this->get("api/open/auth/{$this->app->getUuid()}/token", $payload);
     }
 }

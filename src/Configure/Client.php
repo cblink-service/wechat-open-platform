@@ -22,6 +22,17 @@ class Client extends AbstractApi
     }
 
     /**
+     * 获取配置信息
+     *
+     * @param null $uuid
+     * @return \Cblink\Service\Kennel\HttpResponse
+     */
+    public function show($uuid = null)
+    {
+        return $this->get(sprintf('api/open/config/%s', $uuid ?: $this->app->getUuid()));
+    }
+
+    /**
      * 修改账号配置信息
      *
      * @param array $payload

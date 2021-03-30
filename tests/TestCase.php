@@ -1,9 +1,10 @@
 <?php
+
 namespace Cblink\Service\Wechat\OpenPlatform\Tests;
 
 use Closure;
-use Cblink\Service\Wechat\OpenPlatform\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Cblink\Service\Wechat\OpenPlatform\Application;
 
 /**
  * Class AppTestCase
@@ -28,7 +29,7 @@ class TestCase extends BaseTestCase
             'uuid' => ''
         ];
 
-        if (file_exists($fileName = $this->basePath('config/base.php'))){
+        if (file_exists($fileName = $this->basePath('config/base.php'))) {
             $config = include $fileName;
         }
 
@@ -52,7 +53,7 @@ class TestCase extends BaseTestCase
     public function rebindAppClient($name, $rebind)
     {
         if (!($rebind instanceof Closure)) {
-            $rebind = function() use ($rebind) {
+            $rebind = function () use ($rebind) {
                 return $rebind;
             };
         }

@@ -41,6 +41,23 @@ class ConfigureTest extends TestCase
     }
 
     /**
+     * 获取配置信息
+     */
+    public function testShow()
+    {
+        $client = \Mockery::mock(Client::class, [$this->getApp()]);
+        $client->allows()
+            ->show()
+            ->andReturn($this->getHttpResponse([]));
+
+        $res = $this->rebindAppClient('configure', $client)
+            ->configure
+            ->show();
+
+        $this->assertTrue($res->success(), $res->errMsg());
+    }
+
+    /**
      * 保存url
      */
     public function testStoreUrl()
